@@ -1,0 +1,135 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #001527; 
+    color: #ffffff;
+  
+}
+
+header {
+    background-color: #4a90e2; 
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(12, 79, 110, 0.884);
+}
+.box {
+  background:
+    linear-gradient(
+        105deg,
+        rgba(255, 255, 255, 0.2) 39%,
+        rgba(51, 56, 57, 1) 96%
+      )
+      center center / 400px 200px no-repeat,
+    url(big-star.png) center no-repeat,
+    rebeccapurple;
+}
+.Inicio{
+    background-color: #001527;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: flex;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #357abd; 
+}
+
+.logo-section {
+    text-align: center;
+    padding: 3em 1em;
+    background-color: #ffffff;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: flex;
+    margin-bottom: 1em;
+    display: block;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+    
+
+.logo-section h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #4a90e2;
+}
+
+.logo-section p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.semestres-section {
+    padding: 2em;
+    background-color:#001527;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    width: 220px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.card:hover {
+   color: var(blue); 
+    text-shadow: 0 0 15px rgba(0, 81, 255, 0.5); 
+    transition: color 0.1s, text-shadow 0.1s;
+}
+
+.card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 2em 1.5em;
+}
+
+.card h2 {
+    margin: 0;
+    color: #4a90e2;
+    font-size: 1.5em;
+}
+.enlace-registro {
+    text-align: center;
+    margin-top: 20px; 
+    color: #ffffff;
+    font-size: 0.9em;
+}
+
+.enlace-registro a {
+    color: #4a90e2; 
+    text-decoration: none; 
+    font-weight: bold;
+}

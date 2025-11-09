@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semestre 3 - SynapseNotes</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        .subject-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 2em auto;
+        }
+        .subject-list li {
+            margin-bottom: 1em;
+        }
+        .subject-list a {
+            display: block;
+            padding: 1.5em;
+            background-color: #fff;
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+        .subject-list a:hover {
+              color: var(blue); 
+            text-shadow: 0 0 15px rgba(0, 81, 255, 0.5); 
+            transition: color 0.1s, text-shadow 0.1s;
+        }
+        /* Estilos para los botones de especialidad */
+        .specialty-list a {
+            background-color: #ffc107; /* Un color ámbar para resaltar */
+            color: #333;
+        }
+        .specialty-list a:hover {
+            background-color: #ffca2c;
+        }
+        .section-title {
+            text-align: center;
+            color: #ffffff;
+            margin-top: 3em;
+            margin-bottom: 1em;
+            border-radius: flex;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="buscar.html">Buscar</a></li>
+                <li><a href="miperfil.html">Mi Perfil</a></li>
+                <li><a href="iniciarsesion.html">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="logo-section">
+            <h1>Semestre 3</h1>
+            <p>Materias comunes y de especialidad.</p>
+        </section>
+
+        <h2 class="section-title">Materias Comunes</h2>
+        <ul class="subject-list">
+            <li><a href="tercero/geometriaanalitica.html">Geometría Analítica</a></li>
+            <li><a href="tercero/fisica1.html">Física I</a></li>
+            <li><a href="tercero/quimica1.html">Química I</a></li>
+            <li><a href="tercero/ingles3.html">Inglés III</a></li>
+            <li><a href="tercero/coci.html">Comunicación Científica</a></li>
+            <li><a href="tercero/dibujo1.html">Dibujo Técnico I</a></li>
+            <li><a href="tercero/entorno.html">Entorno Socioeconómico de México</a></li>
+        </ul>
+
+        <h2 class="section-title">Materias de Especialidad</h2>
+        <ul class="subject-list specialty-list">
+            <li><a href="tercero/mac3.html" ><img src="img/mac.jpg" alt="SynapseNotes Logo" class="logo">Manufactura Asistida por Computadora</a></li>
+            <li><a href="tercero/aero3.html"><img src="img/aereo.jpg" alt="SynapseNotes Logo" class="logo">Aeronáutica</a></li>
+            <li><a href="tercero/auto3.html"><img src="img/auto.jpg" alt="SynapseNotes Logo" class="logo">Automotriz</a></li>
+            <li><a href="tercero/compu3.html"><img src="img/compu.jpg" alt="SynapseNotes Logo" class="logo">Computación</a></li>
+            <li><a href="tercero/sisdig3.html"><img src="img/sistemas.jpg" alt="SynapseNotes Logo" class="logo">Sistemas Digitales</a></li>
+            <li><a href="tercero/control3.html"><img src="img/controlElectrico.jpeg" alt="SynapseNotes Logo" class="logo">Sistemas de Control Eléctrico</a></li>
+        </ul>
+    </main>
+
+</body>
+</html>

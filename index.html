@@ -5,10 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SynapseNotes</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        header {
+            position: relative; /* Needed for absolute positioning of children */
+        }
+        .user-stats {
+            position: absolute;
+            top: 1rem;
+            left: 1rem; /* Changed from right to left */
+            background-color: rgba(0, 51, 102, 0.8);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: white;
+            z-index: 10;
+        }
+        .user-stats .stat {
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+        }
+        .user-stats .icon {
+            font-size: 1.5em;
+            margin-right: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
-      <section class="Inicio"></section>  
+        <div class="user-stats">
+            <div class="stat">
+                <span class="icon">🔥</span>
+                <span id="streak-counter">0</span>
+            </div>
+            <div class="stat">
+                <span class="icon">💰</span>
+                <span id="points-counter">0</span>
+            </div>
+        </div>
+        <section class="Inicio"></section>  
         <nav>
             <ul>
                 <li><a href="buscar.html">Buscar</a></li>
@@ -60,6 +98,25 @@
             </div>
         </section>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+            if (isLoggedIn) {
+                // Si el usuario ha iniciado sesión, muestra sus estadísticas
+                let userStreak = parseInt(localStorage.getItem('streakCount')) || 0;
+                let userPoints = parseInt(localStorage.getItem('userPoints')) || 0;
+
+                document.getElementById('streak-counter').textContent = userStreak;
+                document.getElementById('points-counter').textContent = userPoints;
+            } else {
+                // Si no ha iniciado sesión, los contadores permanecen en 0
+                document.getElementById('streak-counter').textContent = 0;
+                document.getElementById('points-counter').textContent = 0;
+            }
+        });
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Progreso - SynapseNotes</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        body {
+            background-color: #001f3f; /* Azul marino oscuro */
+        }
+
+        .dashboard {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #003366; /* Azul más oscuro */
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            text-align: center;
+            color: #ffffff;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            color: #87CEEB; /* Azul cielo */
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        /* Racha de Contribuciones */
+        .streak-circle {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: conic-gradient(#4a90e2 0%, #ddd 0%);
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .streak-inner-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: #003366;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fire-icon {
+            font-size: 70px;
+            transition: color 0.5s ease-in-out;
+        }
+
+        .streak-counter {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        
+        .streak-text {
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+
+        /* Archivos Subidos */
+        .file-icon {
+            font-size: 60px;
+            color: #87CEEB;
+            margin-bottom: 15px;
+        }
+
+        .file-counter {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* Calificaciones */
+        .ratings-container .stars {
+            margin: 20px 0;
+        }
+
+        .star {
+            font-size: 45px;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star.filled {
+            color: #ffc107;
+        }
+
+        /* Puntos */
+        .points-icon {
+            font-size: 60px;
+            color: #87CEEB;
+            margin-bottom: 15px;
+        }
+
+        .points-counter {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .btn-spend {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-spend:hover {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <section class="Inicio"></section>  
+        <nav>
+            <ul>
+                <li><a href="buscar.html">Buscar</a></li>
+                <li><a href="miperfil.html">Mi Perfil</a></li>
+                <li><a href="iniciarsesion.html">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard">
+            <div class="card">
+                <h2>Racha de Contribuciones</h2>
+                <div class="streak-circle" id="streakCircle">
+                    <div class="streak-inner-circle">
+                        <div class="fire-icon" id="fireIcon">🔥</div>
+                    </div>
+                </div>
+                <div class="streak-text">Días de racha: <span class="streak-counter" id="streakCount">0</span></div>
+            </div>
+
+            <div class="card">
+                <h2>Archivos Subidos</h2>
+                <div class="file-icon">📁</div>
+                <div class="file-counter" id="fileCount">0</div>
+                <p>Total de contribuciones</p>
+            </div>
+
+            <div class="card">
+                <h2>Calificaciones</h2>
+                <p>Tu calificación promedio</p>
+                <div class="ratings-container">
+                    <div class="stars">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Mis Puntos</h2>
+                <div class="points-icon">💰</div>
+                <div class="points-counter" id="pointsCount">0</div>
+                <p>Puntos para intercambiar</p>
+                <button class="btn-spend" id="spendPoints">Consultar Archivo (20 Puntos)</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+            if (!isLoggedIn) {
+                // Si el usuario no ha iniciado sesión, puede redirigirlo o simplemente mostrar todo en 0.
+                // Por ahora, solo mostramos 0 y deshabilitamos los botones.
+                document.getElementById('spendPoints').disabled = true;
+                return; // Detiene la ejecución del resto del script.
+            }
+
+            // --- LÓGICA DE RACHA ---
+            function updateUserStreak() {
+                const lastContributionTimestamp = localStorage.getItem('lastContributionTimestamp');
+                let streak = parseInt(localStorage.getItem('streakCount')) || 0;
+                const now = new Date();
+
+                if (lastContributionTimestamp) {
+                    const lastDate = new Date(parseInt(lastContributionTimestamp));
+                    const hoursSinceLastContribution = (now.getTime() - lastDate.getTime()) / (1000 * 60 * 60);
+
+                    if (hoursSinceLastContribution > 48) {
+                        streak = 1;
+                    } else if (hoursSinceLastContribution > 24 && hoursSinceLastContribution <= 48) {
+                        streak++;
+                    }
+                } else {
+                    streak = 1;
+                }
+
+                localStorage.setItem('lastContributionTimestamp', now.getTime().toString());
+                localStorage.setItem('streakCount', streak.toString());
+                
+                return streak;
+            }
+
+            // --- SIMULACIÓN DE DATOS ---
+            let streak = updateUserStreak();
+            let filesUploaded = 23; // Esto debería venir de la base de datos
+            let userRating = 4; // Esto debería venir de la base de datos
+            let userPoints = parseInt(localStorage.getItem('userPoints')) || 0;
+
+            function calculatePoints(rating) {
+                switch(rating) {
+                    case 5: return 100;
+                    case 4: return 80;
+                    case 3: return 60;
+                    case 2: return 40;
+                    case 1: return 20;
+                    default: return 0;
+                }
+            }
+            
+            // Simulación: el usuario gana puntos por una nueva calificación.
+            // En una aplicación real, esto se activaría al recibir una calificación.
+            userPoints += calculatePoints(userRating); 
+            localStorage.setItem('userPoints', userPoints.toString());
+
+            // --- ACTUALIZAR UI ---
+            const streakCount = document.getElementById('streakCount');
+            const streakCircle = document.getElementById('streakCircle');
+            const fireIcon = document.getElementById('fireIcon');
+            
+            streakCount.textContent = streak;
+            let progressPercentage = (streak % 10) * 10;
+            streakCircle.style.background = `conic-gradient(#4a90e2 ${progressPercentage * 3.6}deg, #ddd 0deg)`;
+
+            if (streak > 0 && streak <= 3) {
+                fireIcon.style.color = 'orange';
+            } else if (streak > 3 && streak <= 7) {
+                fireIcon.style.color = 'red';
+            } else if (streak > 7) {
+                fireIcon.style.color = 'darkred';
+            }
+
+            document.getElementById('fileCount').textContent = filesUploaded;
+
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                if (star.dataset.value <= userRating) {
+                    star.classList.add('filled');
+                }
+            });
+
+            const pointsCount = document.getElementById('pointsCount');
+            pointsCount.textContent = userPoints;
+
+            const spendPointsButton = document.getElementById('spendPoints');
+            spendPointsButton.addEventListener('click', () => {
+                if (userPoints >= 20) {
+                    userPoints -= 20;
+                    localStorage.setItem('userPoints', userPoints.toString());
+                    pointsCount.textContent = userPoints;
+                    alert('¡Has consultado un archivo! Se han restado 20 puntos.');
+                } else {
+                    alert('No tienes suficientes puntos para consultar un archivo.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

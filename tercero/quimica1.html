@@ -22,6 +22,49 @@
             <h1>Química I</h1>
             <p>Apuntes y recursos de Química I.</p>
         </section>
+        <div id="file-list-container"></div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileListContainer = document.getElementById('file-list-container');
+            const pathParts = window.location.pathname.split('/');
+            const semestre = pathParts[pathParts.length - 2];
+            const materiaHtml = pathParts[pathParts.length - 1];
+            const materia = materiaHtml.split('.')[0];
+
+            fetch(`/SynapseNotes1/get_files.php?semestre=${semestre}&materia=${materia}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.files.length > 0) {
+                        fileListContainer.innerHTML = '<h2>Archivos disponibles:</h2>';
+                        data.files.forEach(file => {
+                            const fileEntry = document.createElement('div');
+                            fileEntry.classList.add('file-entry');
+                            if (file.tipo_mime === 'application/pdf') {
+                                fileEntry.innerHTML = `
+                                    <h3>${file.nombre_original}</h3>
+                                    <div class="pdf-viewer-container">
+                                        <iframe src="/SynapseNotes1/${file.ruta_archivo}" title="${file.nombre_original}"></iframe>
+                                    </div>
+                                    <p><a href="/SynapseNotes1/${file.ruta_archivo}" target="_blank">Ver en nueva pestaña</a></p>
+                                `;
+                            } else {
+                                fileEntry.innerHTML = `
+                                    <h3>${file.nombre_original}</h3>
+                                    <p><a href="/SynapseNotes1/${file.ruta_archivo}" target="_blank" download>Descargar</a></p>
+                                `;
+                            }
+                            fileListContainer.appendChild(fileEntry);
+                        });
+                    } else {
+                        fileListContainer.innerHTML = '<p>No hay archivos disponibles para esta materia.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener los archivos:', error);
+                    fileListContainer.innerHTML = '<p>Error al cargar los archivos.</p>';
+                });
+        });
+    </script>
 </body>
 </html>

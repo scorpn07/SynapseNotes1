@@ -4,8 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algebra - SynapseNotes</title>
+
     <link rel="stylesheet" href="../CSS/style.css">
    
+
+    <link rel="stylesheet" href="/SynapseNotes1/CSS/style.css">
+    <style>
+        header {
+             background-color: #4a90e2; 
+             padding: 1rem;
+            box-shadow: 0 2px 4px rgba(12, 79, 110, 0.884);
+        }
+        body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                color: #ffffff;
+        }           
+        
+        
+        nav a {
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+         font-weight: bold;
+        font-size: 1.1em;
+        padding: flex;
+         border-radius: 5px;
+         transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+        background-color: #357abd; 
+        }
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 1em;
+            }
+        .logo-section {
+            text-align: center;
+             padding: 3em 1em;
+                background-color: #ffffff;
+            }
+
+        .logo-section h1 {
+             margin: 0;
+            font-size: 2.5em;
+            color: #4a90e2;
+        }
+
+        .logo-section p {
+             font-size: 1.2em;
+            color: #555;
+        }
+       .Inicio{
+            background-color: #001527;
+        }
+        nav ul {
+             list-style: none;
+             margin: 0;
+            padding: 0;
+            display: flex;
+             justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav li {
+            margin-left: 20px;
+        }
+    </style>
+
 </head>
 <body>
     <header>
@@ -26,6 +93,53 @@
             <h1>Álgebra</h1>
             <p>Apuntes y recursos de Álgebra.</p>
         </section>
+        <div id="file-list-container"></div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileListContainer = document.getElementById('file-list-container');
+            const pathParts = window.location.pathname.split('/');
+            const semestre = pathParts[pathParts.length - 2]; // 'primero'
+            const materiaHtml = pathParts[pathParts.length - 1]; // 'algebra.html'
+            const materia = materiaHtml.split('.')[0]; // 'algebra'
+
+            if (!semestre || !materia) {
+                fileListContainer.innerHTML = '<p>No se pudo determinar el semestre o la materia.</p>';
+                return;
+            }
+
+            fetch(`/SynapseNotes1/get_files.php?semestre=${semestre}&materia=${materia}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.files.length > 0) {
+                        fileListContainer.innerHTML = '<h2>Archivos disponibles:</h2>';
+                        data.files.forEach(file => {
+                            const fileEntry = document.createElement('div');
+                            fileEntry.classList.add('file-entry');
+
+                            if (file.tipo_mime === 'application/pdf') {
+                                fileEntry.innerHTML = `
+                                    <h3>${file.nombre_original}</h3>
+                                    <iframe src="/SynapseNotes1/${file.ruta_archivo}" width="100%" height="600px" style="border: none;"></iframe>
+                                    <p><a href="/SynapseNotes1/${file.ruta_archivo}" target="_blank">Ver en nueva pestaña</a></p>
+                                `;
+                            } else {
+                                fileEntry.innerHTML = `
+                                    <h3>${file.nombre_original}</h3>
+                                    <p><a href="/SynapseNotes1/${file.ruta_archivo}" target="_blank" download>Descargar</a></p>
+                                `;
+                            }
+                            fileListContainer.appendChild(fileEntry);
+                        });
+                    } else {
+                        fileListContainer.innerHTML = '<p>No hay archivos disponibles para esta materia y semestre.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al obtener los archivos:', error);
+                    fileListContainer.innerHTML = '<p>Error al cargar los archivos.</p>';
+                });
+        });
+    </script>
 </body>
 </html>

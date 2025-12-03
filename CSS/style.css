@@ -11,6 +11,20 @@ header {
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(12, 79, 110, 0.884);
 }
+.boton {
+    background-color: transparent;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1em;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.boton:hover {
+    background-color: #357abd;
+}
 .box {
   background:
     linear-gradient(
@@ -32,6 +46,10 @@ nav ul {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+nav li.left {
+    margin-right: auto;
 }
 
 nav li {
@@ -79,6 +97,128 @@ nav a:hover {
 .logo-section p {
     font-size: 1.2em;
     color: #555;
+}
+
+/* Estilos para la sección de subida de archivos */
+.upload-form-section {
+    background-color: #001527;
+    padding: 2em;
+    text-align: center;
+    color: #ffffff;
+    display: none; /* Ocultar por defecto */
+}
+
+.upload-form-section.show {
+    display: block; /* Mostrar cuando tenga la clase 'show' */
+}
+
+.upload-form-section h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+    color: #4a90e2;
+}
+
+#uploadForm {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #164a6d;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    font-size: 1em;
+}
+
+#uploadForm button[type="submit"] {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+#uploadForm button[type="submit"]:hover {
+    background-color: #357abd;
+}
+
+/* Estilos para el Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Permanece en su lugar */
+    z-index: 1; /* Se sitúa por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Habilitar scroll si es necesario */
+    background-color: rgba(0,0,0,0.7); /* Fondo oscuro semi-transparente */
+}
+
+.modal.show {
+    display: flex; /* Mostrar cuando tenga la clase 'show' */
+}
+
+.modal-content {
+    background-color: #164a6d;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Podrías ajustar el ancho */
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Asegurarse de que el formulario dentro del modal se vea bien */
+.modal .upload-form-section {
+    display: block; /* Sobrescribir el display: none; del formulario */
+    background-color: transparent; /* Eliminar el fondo del formulario si el modal ya tiene uno */
+    padding: 0;
+    box-shadow: none;
+}
+
+.modal .upload-form-section h2 {
+    color: #ffffff;
 }
 
 .semestres-section {
@@ -132,4 +272,58 @@ nav a:hover {
     color: #4a90e2; 
     text-decoration: none; 
     font-weight: bold;
+}
+
+/* Estilos para la lista de archivos */
+#file-list-container {
+    padding: 2em;
+    background-color: #001527;
+    color: #ffffff;
+}
+
+#file-list-container h2 {
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.file-entry {
+    background-color: #164a6d;
+    border-radius: 8px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.file-entry h3 {
+    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+.file-entry a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.file-entry a:hover {
+    text-decoration: underline;
+}
+
+.pdf-viewer-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Altura fija para el visor de PDF */
+    margin: 1em auto;
+    border: 1px solid #357abd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.pdf-viewer-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }

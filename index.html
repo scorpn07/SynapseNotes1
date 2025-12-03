@@ -49,6 +49,7 @@
         <section class="Inicio"></section>  
         <nav>
             <ul>
+                <li class="left"><button id="toggleUploadForm" class="boton">Subida de Archivos</button></li>
                 <li><a href="buscar.html">Buscar</a></li>
                 <li><a href="miperfil.html">Mi Perfil</a></li>
                 <li><a href="iniciarsesion.html">Iniciar Sesión</a></li>
@@ -99,6 +100,7 @@
         </section>
     </main>
 
+    <!-- TU SCRIPT (HEAD) → SE MANTIENE INTACTO -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -117,6 +119,44 @@
             }
         });
     </script>
+
+    <!-- SCRIPT DE MAIN → TAMBIÉN SIN CAMBIOS -->
+    <script src="JS/script.js"></script>
+
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <section class="upload-form-section">
+                <h2>Subir Apuntes</h2>
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="semestre">Semestre:</label>
+                        <select id="semestre" name="semestre">
+                            <option value="">Selecciona un semestre</option>
+                            <option value="primero">1</option>
+                            <option value="segundo">2</option>
+                            <option value="tercero">3</option>
+                            <option value="cuarto">4</option>
+                            <option value="quinto">5</option>
+                            <option value="sexto">6</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="materia">Materia:</label>
+                        <select id="materia" name="materia" disabled>
+                            <option value="">Selecciona una materia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fileUpload">Selecciona un archivo:</label>
+                        <input type="file" id="fileUpload" name="fileUpload" accept=".pdf,.docx,.jpg,.png">
+                    </div>
+                    <button type="submit">Subir Archivo</button>
+                    <div id="filePreview" style="margin-top: 1em; text-align: center;"></div>
+                </form>
+            </section>
+        </div>
+    </div>
 
 </body>
 </html>
